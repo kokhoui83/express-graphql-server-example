@@ -15,15 +15,17 @@ class Friend {
 
 const friendDB = {}
 
-const resolvers = {
-    getFriend: ({ id }) =>{
-        return new Friend(id, friendDB[id])
+export const resolvers = {
+    Query: {
+        getFriend (_, { id }) {
+            return new Friend(id, friendDB[id])
+        }
     },
-    createFriend: ({ input }) => {
-        const id = crypto.randomBytes(10).toString('hex')
-        friendDB[id] = input
-        return new Friend(id, input)
+    Mutation: {
+        createFriend (_, { input }) {
+            const id = crypto.randomBytes(10).toString('hex')
+            friendDB[id] = input
+            return new Friend(id, input)
+        }
     }
 }
-
-export default resolvers
