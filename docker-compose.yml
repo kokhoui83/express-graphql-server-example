@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  mongodb-local:
+    image: mongo:4.4.5-bionic
+    restart: always
+    container_name: mongodb-local
+    ports:
+        - 27017:27017
+    environment:
+        MONGO_INITDB_ROOT_USERNAME: root
+        MONGO_INITDB_ROOT_PASSWORD: root123
+
+  mongo-express-local:
+    image: mongo-express:0.54.0
+    restart: always
+    container_name: mongo-express-local
+    ports:
+        - 8081:8081
+    environment:
+        ME_CONFIG_MONGODB_ADMINUSERNAME: root
+        ME_CONFIG_MONGODB_ADMINPASSWORD: root123
+        ME_CONFIG_MONGODB_SERVER: mongodb-local
+        ME_CONFIG_MONGODB_PORT: 27017
+
+networks:
+  default:
+    external:
+      name: network
