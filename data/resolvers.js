@@ -35,6 +35,15 @@ export const resolvers = {
                     return resolve(friend)
                 })
             })
+        },
+        updateFriend (_, { input }) {
+            return Friends.findOneAndUpdate({ _id: input.id }, input, { new: true }, (err, friend) => {
+                if (err) {
+                    throw err
+                }
+
+                return friend
+            })
         }
     }
 }
