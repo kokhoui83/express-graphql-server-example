@@ -9,6 +9,14 @@ export const resolvers = {
                     return resolve(friend)
                 })
             })
+        },
+        getFriends () {
+            return new Promise((resolve, reject) => {
+                Friends.find({}, (err, friends) => {
+                    if (err) { return  reject(err) }
+                    return resolve(friends)
+                })
+            })
         }
     },
     Mutation: {
