@@ -44,6 +44,15 @@ export const resolvers = {
 
                 return friend
             })
+        },
+        deleteFriend (_, { id }) {
+            return Friends.remove({ _id: id }, err => {
+                if (err) {
+                    throw err
+                }
+
+                return 'Successfully delete friend'
+            })
         }
     }
 }
