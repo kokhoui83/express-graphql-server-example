@@ -46,12 +46,11 @@ export const resolvers = {
             })
         },
         deleteFriend (_, { id }) {
-            return Friends.remove({ _id: id }, err => {
-                if (err) {
-                    throw err
-                }
-
-                return 'Successfully delete friend'
+            return new Promise((resolve, reject) => {
+                Friends.findByIdAndDelete(id, err => {
+                    if (err) { return reject(err) }
+                    return resolve('Succesfully deleted friend')
+                })
             })
         }
     }
