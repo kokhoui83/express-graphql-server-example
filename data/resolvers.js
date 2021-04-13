@@ -3,12 +3,11 @@ import { Friends } from './connector.js'
 export const resolvers = {
     Query: {
         getFriend (_, { id }) {
-            return Friends.findById(id, (err, friend) => {
-                if (err) {
-                    throw err
-                }
-
-                return friend
+            return new Promise((resolve, reject) => {
+                Friends.findById(id, (err, friend) => {
+                    if (err) { return  reject(err) }
+                    return resolve(friend)
+                })
             })
         }
     },
