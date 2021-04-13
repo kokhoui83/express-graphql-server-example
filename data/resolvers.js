@@ -28,21 +28,17 @@ export const resolvers = {
 
             return new Promise((resolve, reject) => {
                 friend.save(err => {
-                    if (err) {
-                        return reject(err)
-                    }
-
+                    if (err) { return reject(err) }
                     return resolve(friend)
                 })
             })
         },
         updateFriend (_, { input }) {
-            return Friends.findOneAndUpdate({ _id: input.id }, input, { new: true }, (err, friend) => {
-                if (err) {
-                    throw err
-                }
-
-                return friend
+            return new Promise((resolve, reject) => {
+                Friends.findByIdAndUpdate(input.id, input, { new: true }, (err, friend) => {
+                    if (err) { return reject(err) }
+                    return resolve(friend)
+                })
             })
         },
         deleteFriend (_, { id }) {
